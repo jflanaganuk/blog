@@ -23,6 +23,7 @@ const Wrapper = (props: HtmlProps) => {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta type="description" content="A blog for a web developer to ramble into">
     ${props.meta}
     <title>${props.title || 'title'}</title>
     <style>${props.styles}</style>
