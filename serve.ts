@@ -47,7 +47,7 @@ app.get('/', (_req, res) => {
     const dir = sanitizeMDFiles(
         fs.readdirSync(__dirname + '/posts')
     );
-    const posts = filterPostsAfterCurrentDate(dir).slice().reverse().reduce((acc, post) => {
+    const posts = filterPostsAfterCurrentDate(dir).slice().reverse().slice(0, 4).reduce((acc, post) => {
         return `${acc}${fs.readFileSync(__dirname + '/posts/' + post + '.md')}
 ******
 `;

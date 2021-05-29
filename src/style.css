@@ -26,6 +26,7 @@ img {
     filter: drop-shadow(0px 0px 5px grey);
     border-radius: 10px;
     width: 100%;
+    max-width: 1000px;
 }
 
 header {
@@ -51,13 +52,13 @@ a {
     font-weight: 400;
 }
 
-p > a {
+p > a, li > a {
     color: orangered;
     padding: 2px;
     border-radius: 5px;
 }
 
-p > a::before {
+p > a::before, li > a::before {
     content: '🔗';
 }
 
