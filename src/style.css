@@ -32,7 +32,16 @@ a {
     text-decoration: none;
     color: black;
     font-weight: 400;
-    margin: 10px;
+}
+
+p > a {
+    color: orangered;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+p > a::before {
+    content: '🔗';
 }
 
 pre {
@@ -59,4 +68,24 @@ p > code {
     img {
         width: initial;
     }    
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: darkgray;
+    }
+    body {
+        background-color: black;
+        color: white;
+    }
+    header {
+        border-color: white;
+    }
+    a {
+        color: pink;
+    }
+    pre {
+        background-color: plum;
+        color: black;
+    }
 }
