@@ -8,8 +8,7 @@ const md = new MarkdownIt();
 
 app.get('/posts/*', (req, res) => {
     fs.readFile(__dirname + req.url + '.md', (err, data) => {
-        if (err) return res.send('<p>No file</p>');
-        const result = md.render(String(data));
+        const result = err ? '<p>No file</p>' : md.render(String(data));
         const styles = fs.readFileSync(__dirname + '/src/style.css');
         const dir = sanitizeMDFiles(
             fs.readdirSync(__dirname + '/posts')
