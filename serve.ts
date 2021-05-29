@@ -18,7 +18,7 @@ app.get('/posts/*', (req, res) => {
             title: "JFlagg's Blog",
             styles: String(styles),
             content: result,
-            files: dir,
+            files: filterPostsAfterCurrentDate(dir),
         }))
     });
 })
@@ -30,13 +30,15 @@ app.get('/posts', (_req, res) => {
     );
     const result = `
     <h2>All Posts</h2>
-    ${dir.slice().reverse().reduce((acc, file) => `${acc}<a href="/blog/posts/${file}">${new Date(file).toLocaleDateString("en-GB")}</a>`, "")}`
+    <div class="vertical">
+    ${filterPostsAfterCurrentDate(dir).slice().reverse().reduce((acc, file) => `${acc}<a href="/blog/posts/${file}">${new Date(file).toLocaleDateString("en-GB")}</a>`, "")}
+    </div>`
     res.send(Wrapper({
         meta: '',
         title: "JFlagg's Blog",
         styles: String(styles),
         content: result,
-        files: dir,
+        files: filterPostsAfterCurrentDate(dir),
     }))
 })
 
@@ -45,14 +47,18 @@ app.get('/', (_req, res) => {
     const dir = sanitizeMDFiles(
         fs.readdirSync(__dirname + '/posts')
     );
-    const initialPost = fs.readFileSync(__dirname + '/posts/' + dir[0] + '.md')
-    const result = md.render(String(initialPost));
+    const posts = filterPostsAfterCurrentDate(dir).slice().reverse().reduce((acc, post) => {
+        return `${acc}${fs.readFileSync(__dirname + '/posts/' + post + '.md')}
+******
+`;
+    }, "")
+    const result = md.render(String(posts));
     res.send(Wrapper({
         meta: '',
         title: "JFlagg's Blog",
         styles: String(styles),
         content: result,
-        files: dir,
+        files: filterPostsAfterCurrentDate(dir),
     }))
 })
 
@@ -67,7 +73,7 @@ app.use(function (_req, res) {
         title: "JFlagg's Blog",
         styles: String(styles),
         content: "404: Page Not Found",
-        files: dir,
+        files: filterPostsAfterCurrentDate(dir),
     }))
 });
 
@@ -80,4 +86,12 @@ app.listen(5000, () => {
 
 function sanitizeMDFiles(input: string[]): string[] {
     return input.map(filename => filename.split('.')[0]);
+}
+
+function filterPostsAfterCurrentDate(input: string[]): string[] {
+    return input.filter(date => {
+        const dateObject = new Date(date).getTime();
+        const nowObject = new Date().getTime();
+        return nowObject > dateObject;
+    })
 }
