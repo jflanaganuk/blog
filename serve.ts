@@ -31,7 +31,7 @@ app.get('/posts', (_req, res) => {
     );
     const result = `
     <h2>All Posts</h2>
-    ${dir.slice().reverse().reduce((acc, file) => `${acc}<a href="./posts/${file}">${new Date(file).toLocaleDateString("en-GB")}</a>`, "")}`
+    ${dir.slice().reverse().reduce((acc, file) => `${acc}<a href="/blog/posts/${file}">${new Date(file).toLocaleDateString("en-GB")}</a>`, "")}`
     res.send(Wrapper({
         meta: '',
         title: "JFlagg's Blog",
