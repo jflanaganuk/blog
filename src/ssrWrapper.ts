@@ -30,7 +30,7 @@ const Wrapper = (props: HtmlProps) => {
 <body>
     <header>
         <a href="/"><h1>🖥️JFlagg's Blog</h1></a>
-        ${props.files.slice().reverse().slice(0, 2).reduce((acc, file) => `${acc}<a href="/posts/${file}">${new Date(file).toLocaleDateString("en-GB")}</a>`, "")}
+        ${props.files.slice().reverse().slice(0, 2).reduce((acc, file) => `${acc}<a href="./posts/${file}">${new Date(file).toLocaleDateString("en-GB")}</a>`, "")}
         <a href="/posts">View All</a>
     </header>
     ${props.content}
